@@ -175,19 +175,15 @@ classify:
     lw ra, 12(sp)
     addi sp, sp, 16
     
-    addi sp, sp, -16
-    sw a0, 0(sp)
-    sw a1, 4(sp)
-    sw a2, 8(sp)
-    sw ra, 12(sp)
-    addi a0, x0, 4
-    la a1, message
-    ecall
-    lw a0, 0(sp)
-    lw a1, 4(sp)
-    lw a2, 8(sp)
-    lw ra, 12(sp)
-    addi sp, sp, 16
+    ### checkpoint: is any of s1, s2, s4, s7 pointing to zero? ###
+    lw t0, 0(s1)
+    beq t0, x0, err21
+    lw t0, 0(s2)
+    beq t0, x0, err21
+    lw t0, 0(s4)
+    beq t0, x0, err21
+    lw t0, 0(s7)
+    beq t0, x0, err21
 
     # =====================================
     # RUN LAYERS
@@ -435,4 +431,8 @@ err49:
 err20:
     addi a0, x0, 17
     addi a1, x0, 20
+    ecall
+err21:
+    addi a0, x0, 17
+    addi a1, x0, 21
     ecall
