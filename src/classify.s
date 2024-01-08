@@ -27,8 +27,8 @@ classify:
     # scores -> s9: s7 * s4
     # s8 : the index of maximum value.
 
-    addi t0, x0, 7
-    # bne a0, t0, err49
+    addi t0, x0, 5
+    bne a0, t0, err49
 	# =====================================
     # LOAD MATRICES
     # =====================================
@@ -45,49 +45,65 @@ classify:
     sw s9, 36(sp)
     # allocate memory for s1, s2, s4, s7.
     ## allocate for s1
-    addi sp, sp, -8
+    addi sp, sp, -16
     sw a0, 0(sp)
-    sw ra, 4(sp)
+    sw a1, 4(sp)
+    sw a2, 8(sp)
+    sw ra, 12(sp)
     addi a0, x0, 4
     jal ra, malloc
     beq a0, x0, err20
     add s1, a0, x0
     lw a0, 0(sp)
-    lw ra, 4(sp)
-    addi sp, sp, 8
+    lw a1, 4(sp)
+    lw a2, 8(sp)
+    lw ra, 12(sp)
+    addi sp, sp, 16
     ## allocate for s2
-    addi sp, sp, -8
+    addi sp, sp, -16
     sw a0, 0(sp)
-    sw ra, 4(sp)
+    sw a1, 4(sp)
+    sw a2, 8(sp)
+    sw ra, 12(sp)
     addi a0, x0, 4
     jal ra, malloc
     beq a0, x0, err20
     add s2, a0, x0
     lw a0, 0(sp)
-    lw ra, 4(sp)
-    addi sp, sp, 8
+    lw a1, 4(sp)
+    lw a2, 8(sp)
+    lw ra, 12(sp)
+    addi sp, sp, 16
     ## allocate for s4
-    addi sp, sp, -8
+    addi sp, sp, -16
     sw a0, 0(sp)
-    sw ra, 4(sp)
+    sw a1, 4(sp)
+    sw a2, 8(sp)
+    sw ra, 12(sp)
     addi a0, x0, 4
     jal ra, malloc
     beq a0, x0, err20
     add s4, a0, x0
     lw a0, 0(sp)
-    lw ra, 4(sp)
-    addi sp, sp, 8
+    lw a1, 4(sp)
+    lw a2, 8(sp)
+    lw ra, 12(sp)
+    addi sp, sp, 16
     ## allocate for s7
-    addi sp, sp, -8
+    addi sp, sp, -16
     sw a0, 0(sp)
-    sw ra, 4(sp)
+    sw a1, 4(sp)
+    sw a2, 8(sp)
+    sw ra, 12(sp)
     addi a0, x0, 4
     jal ra, malloc
     beq a0, x0, err20
     add s7, a0, x0
     lw a0, 0(sp)
-    lw ra, 4(sp)
-    addi sp, sp, 8
+    lw a1, 4(sp)
+    lw a2, 8(sp)
+    lw ra, 12(sp)
+    addi sp, sp, 16
 
     # Load pretrained m0
     addi sp, sp, -16
@@ -96,9 +112,11 @@ classify:
     sw a2, 8(sp)
     sw ra, 12(sp)
 
-    addi t0, x0, 3
+    addi t0, x0, 1
     slli t0, t0, 2
-    add a0, a1, t0
+    # add a0, a1, t0
+    add t2, a1, t0
+    lw a0, 0(t2)
     add a1, s1, x0
     add a2, s2, x0
     jal ra, read_matrix
@@ -117,9 +135,11 @@ classify:
     sw a2, 8(sp)
     sw ra, 12(sp)
 
-    addi t0, x0, 4
+    addi t0, x0, 2
     slli t0, t0, 2
-    add a0, a1, t0
+    # add a0, a1, t0
+    add t2, a1, t0
+    lw a0, 0(t2)
     add a1, s7, x0
     add a2, s1, x0
     jal ra, read_matrix
@@ -138,9 +158,11 @@ classify:
     sw a2, 8(sp)
     sw ra, 12(sp)
 
-    addi t0, x0, 5
+    addi t0, x0, 3
     slli t0, t0, 2
-    add a0, a1, t0
+    # add a0, a1, t0
+    add t2, a1, t0
+    lw a0, 0(t2)
     add a1, s2, x0
     add a2, s4, x0
     jal ra, read_matrix
@@ -272,9 +294,11 @@ classify:
     sw a2, 8(sp)
     sw ra, 12(sp)
 
-    addi t0, t0, 6
+    addi t0, x0, 4
     slli t0, t0, 2
-    add a0, a1, t0
+    # add a0, a1, t0
+    add t2, a1, t0
+    lw a0, 0(t2)
     add a1, s9, x0
     lw a2, 0(s7)
     lw a3, 0(s4)
