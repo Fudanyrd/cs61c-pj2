@@ -73,7 +73,7 @@ loop_end:
     lw s0, 0(sp)
     lw s1, 4(sp) 
     lw ra, 8(sp)
-    addi sp, sp, -12
+    addi sp, sp, 12
     ret
 err5:
     addi a0, x0, 17
