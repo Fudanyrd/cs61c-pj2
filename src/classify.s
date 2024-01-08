@@ -1,5 +1,6 @@
 .globl classify
-
+.data
+message: .asciiz "you are now here, at line 177\n"
 .text
 classify:
     # =====================================
@@ -173,7 +174,20 @@ classify:
     lw a2, 8(sp)
     lw ra, 12(sp)
     addi sp, sp, 16
-
+    
+    addi sp, sp, -16
+    sw a0, 0(sp)
+    sw a1, 4(sp)
+    sw a2, 8(sp)
+    sw ra, 12(sp)
+    addi a0, x0, 4
+    la a1, message
+    ecall
+    lw a0, 0(sp)
+    lw a1, 4(sp)
+    lw a2, 8(sp)
+    lw ra, 12(sp)
+    addi sp, sp, 16
 
     # =====================================
     # RUN LAYERS
@@ -189,6 +203,7 @@ classify:
     lw t1, 0(s1)
     lw t2, 0(s4)
     mul t0, t1, t2
+    slli t0, t0, 2
     add a0, t0, x0
     jal ra, malloc
     beq a0, x0, err20
@@ -252,6 +267,7 @@ classify:
     lw t1, 0(s7)
     lw t2, 0(s4)
     mul t0, t1, t2
+    slli t0, t0, 2
     add a0, t0, x0
     jal ra, malloc
     beq a0, x0, err20
