@@ -34,6 +34,8 @@ read_matrix:
     sw s4, 16(sp) # number of elements
     sw s5, 20(sp) # the first 8 bytes of the file
     sw s6, 24(sp) # the entire file
+    add s1, a1, x0
+    add s2, a2, x0
 
 # Task: open the file : error code 50
     addi sp, sp, -16
